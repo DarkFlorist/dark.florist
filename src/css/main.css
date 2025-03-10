@@ -108,10 +108,15 @@
     place-content: center;
     padding-inline: 2rem;
     padding-block: 4rem;
-    min-height: 20ch;
     height: calc(100vh - var(--header-height));
+    min-height: 110ch;
+
+    @media (--screen-md) {
+      min-height: 110ch;
+    }
 
     @media (--screen-lg) {
+      min-height: 70ch;
       max-height: 100ch;
       grid-template-columns: 1fr max-content;
       gap: 5%;
