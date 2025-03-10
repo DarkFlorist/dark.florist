@@ -1,0 +1,44 @@
+.emphasize {
+  font-weight: 600;
+  font-size: 1.7rem;
+  margin-block: 2rem;
+  line-height: 1.25;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  color: var(--foreground);
+
+  &:before {
+    content: "";
+    display: block;
+    height: 3rem;
+    width: 1px;
+    background-color: var(--accent);
+    margin-inline: auto;
+    margin-bottom: 2rem;
+  }
+
+  @media (--screen-lg) {
+    padding-inline: initial;
+    padding-left: 2rem;
+    border-left: 1px solid var(--accent);
+
+    &:before {
+      content: none;
+    }
+  }
+
+  &.orientation--right {
+    @media (--screen-lg) {
+      border-left: 0 none;
+      border-right: 1px solid var(--accent);
+      padding-right: 2rem;
+    }
+  }
+}
+
+.de-emphasize {
+  font-size: 1rem;
+  color: oklch(from var(--accent) calc(l - 0.3) c h);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,20 @@
+:root {
+  --background: oklch(17.76% 0 0);
+  --foreground: oklch(1 0 0);
+  --primary: oklch(24.55% 0.0227 195.77);
+  --primary-foreground: oklch(1 0 0);
+  --accent: oklch(87.08% 0.0636 197.29);
+  --accent-foreground: var(--primary);
+  --muted: oklch(0.19 0.02 195.76);
+  --muted-foreground: oklch(0.75 0 0);
+  --header-height: 5rem;
+}
+
+body {
+  background: black;
+  color: var(--foreground);
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
