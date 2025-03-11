@@ -76,6 +76,10 @@
   text-align: center;
   margin-bottom: 3rem;
   padding-inline: 3rem;
+
+  & strong {
+    color: var(--accent);
+  }
 }
 
 .parallax {
@@ -205,15 +209,15 @@ dialog {
     position: sticky;
     top: 0;
     border-radius: 4px;
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
+    width: 2rem;
+    height: 2rem;
     display: grid;
-    grid-template-columns: max-content 1fr;
+    place-content: center;
     column-gap: 0.5em;
     margin-left: auto;
     cursor: pointer;
-    /* background: var(--background); */
-    background: oklch(from var(--primary) calc(l + 0.1) c h);
+    color: var(--accent);
+    font-size: 1.5rem;
 
     &:before {
       content: "✕";
@@ -222,8 +226,7 @@ dialog {
     &:focus,
     &:hover {
       outline: none;
-      background: var(--accent);
-      color: var(--accent-foreground);
+      text-shadow: 0 0 20px 5px var(--accent);
     }
   }
 }
@@ -233,7 +236,8 @@ nav:has(ul[role="menubar"]) {
 
   display: grid;
 
-  &:focus, &:focus-within {
+  &:focus,
+  &:focus-within {
     position: fixed;
     inset: 0;
     row-gap: 1rem;
@@ -244,7 +248,9 @@ nav:has(ul[role="menubar"]) {
     background: oklch(from var(--primary) l c h / 0.9);
     backdrop-filter: blur(5px);
 
-    &:before { visibility: hidden }
+    &:before {
+      visibility: hidden;
+    }
 
     @media (--screen-lg) {
       position: relative;
@@ -343,7 +349,7 @@ nav:has(ul[role="menubar"]) {
     &:is(nav:focus &, nav:focus-within &) {
       grid-template-rows: 1fr;
     }
-    
+
     @media (--screen-lg) {
       grid-template-rows: 1fr;
 
@@ -370,5 +376,138 @@ nav:has(ul[role="menubar"]) {
         display: none;
       }
     }
+  }
+}
+
+.tabbed-content {
+  display: grid;
+  grid-template-columns: 1fr auto auto 1fr;
+  place-content: center;
+  column-gap: 1rem;
+  row-gap: 1rem;
+
+  /* for offset */
+  &:before { 
+    content: " ";
+    display: block;
+    width: 100px;
+    height: 1rem;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  [role="tab"] {
+    grid-row: 1 / 2;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border: 1px solid var(--primary);
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:has(+ :checked) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+
+  [type="radio"] {
+    position: absolute;
+    z-index: -999;
+
+    &:checked + [role="tabpanel"] {
+      grid-auto-rows: 1fr;
+    }
+  }
+
+  [role="tabpanel"] {
+    grid-column: 1 / 5;
+    grid-row: 2 / 3;
+    transition: grid-auto-rows 0.2s;
+
+
+    &:not(:checked + &) {
+      grid-auto-rows: 0fr;
+
+      & > * {
+        padding: 0 !important;
+      }
+    }
+
+    & > * {
+      overflow: hidden;
+    }
+  }
+}
+
+.led {
+  --background: var(--background, --primary-foreground);
+  --foreground: var(--foreground, --primary);
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 0.875em;
+    height: 0.875em;
+    margin-right: 0.5rem;
+    background: var(--background);
+    border-radius: 50%;
+    animation: glow 500ms infinite alternate;
+  }
+}
+
+.led-destructive {
+  --background: var(--destructive);
+  --foreground: var(--destructive-foreground);
+}
+
+.led-warning {
+  --background: var(--warning);
+  --foreground: var(--warning-foreground);
+}
+
+.card {
+  background: linear-gradient(
+    45deg,
+    oklch(from var(--foreground) calc(l + 0.05) c h / 0.02),
+    oklch(from var(--accent) calc(l + 1) c h / 0.06)
+  );
+  padding-inline: 2rem;
+  padding-block: 1.5rem;
+  border-radius: 10px;
+}
+
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}
+
+.prose {
+  h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-block: 1rem;
+  }
+
+  h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  p {
+    color: var(--muted-foreground);
+    margin-block: 1rem;
+  }
+
+  ul {
+    color: var(--muted-foreground);
+    margin-block: 1rem;
+    list-style: disc;
+    list-style-position: inside;
   }
 }

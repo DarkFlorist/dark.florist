@@ -8,6 +8,10 @@
   --muted: oklch(0.19 0.02 195.76);
   --muted-foreground: oklch(0.75 0 0);
   --header-height: 5rem;
+  --destructive: oklch(0.52 0.21 25.74);
+  --destructive-foreground: oklch(0.82 0.03 16.52);
+  --warning: oklch(0.71 0.17 53.24);
+  --warning-foreground: oklch(0.86 0.06 58.63);
 }
 
 body {
