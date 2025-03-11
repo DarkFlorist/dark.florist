@@ -28,13 +28,16 @@
     margin-inline: auto;
     padding-inline: 2rem;
     display: grid;
+    height: var(--header-height);
+    align-items: center;
+    position: relative;
 
     @media (--screen-lg) {
       grid-template-columns: auto auto;
       align-items: center;
     }
 
-    & > div:first-child {
+    & > div {
       display: flex;
       gap: 0.5rem;
       align-items: center;
