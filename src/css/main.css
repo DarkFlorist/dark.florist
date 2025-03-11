@@ -19,7 +19,7 @@
   transition-duration: 500ms;
   top: 0;
 
-  &:is(.scrolled &) {
+  &:is(.scrolled &), &:has(nav:focus) {
     background-color: oklch(from var(--primary) l c h / 0.75);
     backdrop-filter: blur(10px);
   }
@@ -28,14 +28,16 @@
     margin-inline: auto;
     padding-inline: 2rem;
     display: grid;
-    grid-template-columns: 1fr auto;
+    height: var(--header-height);
+    align-items: center;
+    position: relative;
 
     @media (--screen-lg) {
-      grid-template-columns: max-content 1fr max-content;
-      place-items: center;
+      grid-template-columns: auto auto;
+      align-items: center;
     }
 
-    & > div:first-child {
+    & > div {
       display: flex;
       gap: 0.5rem;
       align-items: center;
@@ -47,58 +49,6 @@
       }
     }
   }
-
-  & [role="switch"] {
-    font-size: 2.5rem;
-    @media (--screen-lg) {
-      display: none;
-    }
-  }
-
-  & nav[role] {
-    display: none;
-    grid-column: span 2 / span 2;
-
-    @media (--screen-lg) {
-      display: grid;
-      grid-column: span 1 / span 1;
-      grid-auto-flow: column;
-      gap: 0.5rem;
-    }
-
-    @media (--screen-xl) {
-      gap: 1rem;
-    }
-
-    & a {
-      padding: 0.5rem;
-      transition: color 0.2s;
-      color: var(--accent);
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  & nav:not([role]) {
-    display: none;
-    grid-auto-flow: column;
-    justify-content: start;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.5rem;
-    height: var(--header-height);
-
-    @media (--screen-lg) {
-      display: grid;
-      place-content: center;
-    }
-
-    & a {
-      color: var(--foreground);
-    }
-  }
 }
 
 .hero {
@@ -108,10 +58,15 @@
     place-content: center;
     padding-inline: 2rem;
     padding-block: 4rem;
-    min-height: 20ch;
     height: calc(100vh - var(--header-height));
+    min-height: 110ch;
+
+    @media (--screen-md) {
+      min-height: 110ch;
+    }
 
     @media (--screen-lg) {
+      min-height: 70ch;
       max-height: 100ch;
       grid-template-columns: 1fr max-content;
       gap: 5%;

@@ -201,7 +201,7 @@ dialog {
     backdrop-filter: blur(5px);
   }
 
-  button[formmethod=dialog] {
+  button[formmethod="dialog"] {
     position: sticky;
     top: 0;
     border-radius: 4px;
@@ -219,10 +219,156 @@ dialog {
       content: "✕";
     }
 
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       outline: none;
       background: var(--accent);
       color: var(--accent-foreground);
+    }
+  }
+}
+
+nav:has(ul[role="menubar"]) {
+  --duration: 300ms;
+
+  display: grid;
+
+  &:focus, &:focus-within {
+    position: fixed;
+    inset: 0;
+    row-gap: 1rem;
+    padding-bottom: 1.75rem;
+    height: 100dvh;
+    width: 100vw;
+    place-content: center;
+    background: oklch(from var(--primary) l c h / 0.9);
+    backdrop-filter: blur(5px);
+
+    &:before { visibility: hidden }
+
+    @media (--screen-lg) {
+      position: relative;
+      height: auto;
+      width: auto;
+      row-gap: 0;
+      justify-content: space-between;
+      padding-bottom: 0;
+      background: initial;
+      backdrop-filter: none;
+    }
+  }
+
+  @media (--screen-lg) {
+    position: relative;
+    top: initial;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &:before {
+    position: absolute;
+    content: "\2261";
+    top: 0;
+    display: block;
+    right: 1.5rem;
+    font-size: 3rem;
+
+    @media (--screen-lg) {
+      display: none;
+    }
+  }
+
+  @media (--screen-lg) {
+    order: initial;
+  }
+
+  & ul {
+    display: grid;
+    transition: grid-template-rows 0s;
+
+    &:is(nav:focus &, nav:focus-within &) {
+      transition: grid-template-rows var(--duration);
+    }
+
+    & li {
+      overflow: hidden;
+    }
+  }
+
+  & [role="menubar"] {
+    display: grid;
+    grid-template-rows: repeat(6, 0fr);
+    justify-items: center;
+
+    &:is(nav:focus &, nav:focus-within &) {
+      grid-template-rows: repeat(6, 1fr);
+    }
+
+    @media (--screen-lg) {
+      grid-auto-flow: column;
+      grid-template-rows: min-content;
+
+      &:is(nav:focus &, nav:focus-within &) {
+        grid-template-rows: min-content;
+      }
+    }
+
+    & a {
+      display: inline-block;
+      padding-block: 0.5rem;
+      font-size: 1.5rem;
+
+      @media (--screen-lg) {
+        font-size: 1rem;
+        display: inline-block;
+        padding-inline: 0.75rem;
+
+        &:hover {
+          color: var(--accent);
+          background: oklch(from var(--primary) l c h / 0.5);
+        }
+      }
+    }
+  }
+
+  & ul:not([role]) {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: 0fr;
+    justify-content: start;
+    alight-items: center;
+    column-gap: 1rem;
+
+    &:is(nav:focus &, nav:focus-within &) {
+      grid-template-rows: 1fr;
+    }
+    
+    @media (--screen-lg) {
+      grid-template-rows: 1fr;
+
+      &:is(nav:focus &, nav:focus-within &) {
+        grid-template-rows: 1fr;
+      }
+    }
+
+    & a {
+      font-size: 1.75rem;
+    }
+  }
+
+  & + button[aria-controls] {
+    display: none;
+    font-size: 3rem;
+
+    &:is(nav:focus + &, nav:focus-within + &) {
+      display: block;
+      position: fixed;
+      right: 1.5rem;
+
+      @media (--screen-lg) {
+        display: none;
+      }
     }
   }
 }
