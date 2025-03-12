@@ -476,7 +476,7 @@
     padding-inline: 2rem;
     
     p {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     & a {
@@ -488,6 +488,7 @@
       font-weight: 600;
       transition: color 0.2s;
       border-radius: 0.25rem;
+      transition: background 300ms;
 
       &:hover {
         background: var(--primary);
@@ -602,6 +603,7 @@
 
   section {
     display: grid;
+    margin-bottom: 6rem;
 
     @media (--screen-lg) {
       grid-template-columns: 1fr 1fr 1fr;
@@ -657,6 +659,44 @@
 
         &:has(svg) {
           border: 1px solid var(--accent);
+        }
+      }
+    }
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .socials {
+    margin-inline: auto;
+    text-align: center;
+    display: grid;
+    grid-auto-flow: column;
+    place-content: center;
+    column-gap: 3rem;
+
+    a {
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      text-align: center;
+
+      svg {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--foreground);
+      }
+
+      &:hover {
+        color: var(--accent);
+
+        & svg {
+          color: var(--accent);
         }
       }
     }
