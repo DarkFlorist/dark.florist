@@ -1,23 +1,9 @@
 # The Interceptor Website
 
-- Uses Vite to generate static webpage
-
 ## Development
 
-Start a development server at [localhost:5173](http://localhost:5173)
+Start a development server at [localhost:8787](http://localhost:8787)
 
 ```sh
-npm run dev
-```
-
-Generate a static page at `/dist` directory
-
-```sh
-npm run build
-```
-
-Preview the build
-
-```sh
-npm run serve
+npm run start
 ```

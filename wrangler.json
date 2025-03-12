@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "compatibility_date": "2024-12-30",
   "name": "dark-florist",
-  "main": "server.ts",
+  "main": "server.js",
   "assets": {
     "binding": "ASSETS",
     "directory": "dist/",

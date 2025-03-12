@@ -2,22 +2,13 @@
   "name": "dark.florist",
   "description": "Website for dark.florist",
   "version": "0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "vite dev --host",
-    "build": "vite build",
-    "serve": "wrangler dev --ip 0.0.0.0 --show-interactive-dev-session false"
+    "start": "wrangler dev"
   },
   "author": "Jubal Mabaquiao <jubal.mabaquiao@gmail.com>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "browserslist": "4.24.4",
-    "lightningcss": "1.29.2",
-    "typescript": "5.7.3",
-    "vite": "6.2.1",
-    "wrangler": "3.114.0"
-  },
-  "dependencies": {
-    "hono": "4.6.18"
+    "wrangler": "3.114.1"
   }
 }
