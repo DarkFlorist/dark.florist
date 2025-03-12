@@ -10,15 +10,22 @@ const initFixedHeader = () => {
   });
 };
 const initModalBindings = () => {
-  const modalTriggers = document.querySelectorAll("[data-modal-target]");
-  modalTriggers.forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const modalId = trigger.getAttribute("data-modal-target");
-      const modal = document.querySelector(`dialog[data-modal-id="${modalId}"]`);
-      if (modal instanceof HTMLDialogElement) {
-        modal.showModal();
+  const buttonSelector = "[aria-haspopup=dialog]";
+  document.querySelectorAll(buttonSelector).forEach((button) => {
+    button.addEventListener("click", () => {
+      const dialogId = button.getAttribute("aria-controls");
+      if (!dialogId) {
+        return console.error("aria-controls attribute is missing");
+      }
+      const element = document.getElementById(dialogId) || document.querySelector("[role=dialog]");
+      if (element) {
+        if (element instanceof HTMLDialogElement) {
+          element.showModal();
+        } else {
+          console.error("Element is not a dialog element");
+        }
       } else {
-        console.error(`Modal with data-modal-id="${modalId}" not found or is not a dialog element`);
+        console.error("Dialog not found");
       }
     });
   });
