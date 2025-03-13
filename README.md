@@ -1,8 +1,10 @@
 # The Interceptor Website
 
-Serve the `dist` folder with any HTTP server or run the convenience script provided.
+## ENS & IPFS:
+ipns://darkflorist.eth
 
-```sh
-// Serves the site at http://localhost:3000
-npm run start
-```
+## DNS & HTTP:
+https://dark.florist
+
+## Local:
+Serve `dist` folder with your favorite static file server or open `dist/html` in any browser.
