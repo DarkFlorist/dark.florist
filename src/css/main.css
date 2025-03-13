@@ -350,7 +350,7 @@
 
   section {
     display: grid;
-    padding-inline: 1rem;
+    padding-inline: 2rem;
     gap: 1rem;
 
     @media (--screen-md) {
@@ -409,7 +409,6 @@
 
   & .container {
     padding-block: 4rem;
-    max-width: 100vw;
   }
 
   & .leading {
@@ -418,11 +417,18 @@
 
   .cards {
     display: grid;
-    grid-auto-flow: column;
-    column-gap: 2rem;
-    overflow-x: scroll;
+    gap: 1rem;
     padding-inline: 2rem;
     margin-bottom: 4rem;
+
+    @media (--screen-md) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (--screen-lg) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
   }
 
   .led {
@@ -430,9 +436,6 @@
   }
 
   .card {
-    width: 80%;
-    min-width: 30ch;
-    max-width: 40ch;
     display: grid;
     grid-template-rows: min-content min-content 1fr min-content;
 
@@ -512,7 +515,7 @@
 
   section {
     display: grid;
-    padding-inline: 1rem;
+    padding-inline: 2rem;
     gap: 1rem;
 
     @media (--screen-sm) {
