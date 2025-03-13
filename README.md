@@ -1,9 +1,8 @@
 # The Interceptor Website
 
-## Development
-
-Start a development server at [localhost:8787](http://localhost:8787)
+Serve the `dist` folder with any HTTP server or run the convenience script provided.
 
 ```sh
+// Serves the site at http://localhost:3000
 npm run start
 ```

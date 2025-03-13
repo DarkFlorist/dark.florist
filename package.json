@@ -2,13 +2,9 @@
   "name": "dark.florist",
   "description": "Website for dark.florist",
   "version": "0",
-  "main": "server.js",
   "scripts": {
-    "start": "wrangler dev"
+    "start": "npx serve dist"
   },
   "author": "Jubal Mabaquiao <jubal.mabaquiao@gmail.com>",
-  "license": "UNLICENSED",
-  "devDependencies": {
-    "wrangler": "3.114.1"
-  }
+  "license": "UNLICENSED"
 }
