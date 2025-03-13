@@ -627,6 +627,10 @@
       max-width: 240px;
       border: 10px solid var(--primary);
       transition: all 1s;
+
+      &:is(:hover > img) {
+        border-color: var(--accent);
+      }
     }
 
     p {
@@ -643,19 +647,21 @@
     a {
       display: inline-block;
       margin-inline: auto;
-      padding: 0.5rem;
 
       &:has(svg) {
         border: 1px solid;
         border-radius: 5px;
+        width: 2.5rem;
+        height: 2.5rem;
+        place-content: center;
+
+        & > svg {
+          margin-top: -0.25rem;
+        }
       }
 
       &:hover {
         color: var(--accent);
-
-        & > img {
-          border-color: var(--accent);
-        }
 
         &:has(svg) {
           border: 1px solid var(--accent);
