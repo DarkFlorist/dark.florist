@@ -1234,7 +1234,7 @@
 
 .protections section {
   gap: 1rem;
-  padding-inline: 1rem;
+  padding-inline: 2rem;
   display: grid;
 }
 
@@ -1294,7 +1294,6 @@
 }
 
 .scams .container {
-  max-width: 100vw;
   padding-block: 4rem;
 }
 
@@ -1303,12 +1302,23 @@
 }
 
 .scams .cards {
-  grid-auto-flow: column;
-  column-gap: 2rem;
+  gap: 1rem;
   margin-bottom: 4rem;
   padding-inline: 2rem;
   display: grid;
-  overflow-x: scroll;
+}
+
+@media (min-width: 768px) {
+  .scams .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scams .cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
 }
 
 .scams .led {
@@ -1317,9 +1327,6 @@
 
 .scams .card {
   grid-template-rows: min-content min-content 1fr min-content;
-  width: 80%;
-  min-width: 30ch;
-  max-width: 40ch;
   display: grid;
 }
 
@@ -1397,7 +1404,7 @@
 
 .products section {
   gap: 1rem;
-  padding-inline: 1rem;
+  padding-inline: 2rem;
   display: grid;
 }
 
@@ -1526,6 +1533,10 @@
   transition: all 1s;
 }
 
+.about-us figure img:is(:hover > img) {
+  border-color: var(--accent);
+}
+
 .about-us figure p {
   margin-bottom: .5rem;
 }
@@ -1539,21 +1550,23 @@
 
 .about-us figure a {
   margin-inline: auto;
-  padding: .5rem;
   display: inline-block;
 }
 
 .about-us figure a:has(svg) {
   border: 1px solid;
   border-radius: 5px;
+  place-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.about-us figure a:has(svg) > svg {
+  margin-top: -.25rem;
 }
 
 .about-us figure a:hover {
   color: var(--accent);
-}
-
-.about-us figure a:hover > img {
-  border-color: var(--accent);
 }
 
 .about-us figure a:hover:has(svg) {
