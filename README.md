@@ -7,4 +7,4 @@ ipns://darkflorist.eth
 https://dark.florist
 
 ## Local:
-Serve `dist` folder with your favorite static file server or open `dist/html` in any browser.
+Serve `dist` folder with your favorite static file server or open `dist/index.html` in any browser.
