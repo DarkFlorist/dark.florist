@@ -365,7 +365,7 @@
 
   .parallax-bg:before {
     content: "";
-    background-image: url("/assets/bg-hero.webp");
+    background-image: url("images/bg-hero.webp");
     background-size: cover;
     grid-area: hero;
     height: 200vh;
@@ -1276,7 +1276,7 @@
 .protections article a:after {
   content: "";
   vertical-align: baseline;
-  background: url("/assets/external-link.svg") 0 0 / contain;
+  background: url("images/external-link.svg") 0 0 / contain;
   width: 1em;
   height: 1em;
   margin-bottom: -2px;
@@ -1470,7 +1470,7 @@
 .products article a:after {
   content: "";
   vertical-align: baseline;
-  background: url("/assets/external-link.svg") 0 0 / contain;
+  background: url("images/external-link.svg") 0 0 / contain;
   width: 1em;
   height: 1em;
   margin-bottom: -2px;
