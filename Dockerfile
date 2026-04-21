@@ -1,72 +1,21 @@
-# ---------------------------------------------
-# App Setup: Install dependencies and build app
-# ---------------------------------------------
-
-FROM oven/bun:1.3.11-alpine@sha256:d5033b198b338c67e514f404e777ee818e18d1b031b0c4ac0eb1112032ae7bf7 AS builder
-
-# Install app dependencies
-COPY ./package.json /source/package.json
-COPY ./bun.lock /source/bun.lock
-WORKDIR /source
-RUN bun install --frozen-lockfile
-
-# Install Solidity dependencies
-COPY ./solidity/package.json /source/solidity/package.json
-COPY ./solidity/bun.lock /source/solidity/bun.lock
-WORKDIR /source/solidity
-RUN bun install --frozen-lockfile
-
-# Vendoring files
-COPY ./tsconfig.vendor.json /source/tsconfig.vendor.json
-COPY ./build/ /source/build/
-COPY ./app/index.html /source/app/index.html
-
-# Contracts
-WORKDIR /source
-COPY ./solidity/tsconfig.json /source/solidity/tsconfig.json
-COPY ./solidity/tsconfig-compile.json /source/solidity/tsconfig-compile.json
-COPY ./solidity/contracts/ /source/solidity/contracts/
-COPY ./solidity/ts/ /source/solidity/ts/
-
-# Build the app
-COPY ./tsconfig.json /source/tsconfig.json
-COPY ./app/css/ /source/app/css/
-COPY ./app/ts/ /source/app/ts/
-COPY ./app/favicon.ico /source/app/favicon.ico
-RUN bun run setup
-
-# --------------------------------------------------------
-# Base Image: Create the base image that will host the app
-# --------------------------------------------------------
-
-# Cache the kubo image
+# Cache the kubo image that provides the ipfs binary.
 FROM ipfs/kubo:v0.25.0@sha256:0c17b91cab8ada485f253e204236b712d0965f3d463cb5b60639ddd2291e7c52 AS ipfs-kubo
 
-# Create the base image
+# Runtime image used to calculate and publish the IPFS hash.
 FROM debian:12.6-slim@sha256:39868a6f452462b70cf720a8daff250c63e7342970e749059c105bf7c1e8eeaf
 
-# Add curl to the base image (7.88.1-10+deb12u6)
-# Add jq to the base image (1.6-2.1)
-RUN sed -i 's/URIs/# URIs/g' /etc/apt/sources.list.d/debian.sources && \
-	sed -i 's/# http/URIs: http/g' /etc/apt/sources.list.d/debian.sources && \
-	apt-get update -o Acquire::Check-Valid-Until=false && apt-get install -y curl=7.88.1-10+deb12u6 jq=1.6-2.1
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install kubo and initialize ipfs
 COPY --from=ipfs-kubo /usr/local/bin/ipfs /usr/local/bin/ipfs
 
-# Copy app's build output and initialize IPFS api
-COPY --from=builder /source/app /export
-RUN ipfs init
+# This repo ships a prebuilt static site in dist/.
+COPY dist/ /export
 
-# Store the hash to a file
-RUN ipfs add --cid-version 1 --quieter --only-hash --recursive /export > ipfs_hash.txt
-
-# Print the hash for visibility
-RUN cat ipfs_hash.txt
-
-# --------------------------------------------------------
-# Publish Script: when run, publishes to IPFS running on docker host.
-# --------------------------------------------------------
+RUN ipfs init \
+  && ipfs add --cid-version 1 --quieter --only-hash --recursive /export > /ipfs_hash.txt \
+  && cat /ipfs_hash.txt
 
 WORKDIR /temp
 COPY <<'EOF' /entrypoint.sh
@@ -84,4 +33,4 @@ EOF
 
 RUN chmod u+x /entrypoint.sh
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT ["/entrypoint.sh"]
