@@ -1625,6 +1625,7 @@ body > footer button {
   color: var(--accent);
   text-underline-offset: .2em;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 body > footer button:hover {
