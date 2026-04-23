@@ -1,4 +1,4 @@
-name: Build and Push to IPFS
+name: Build and Push image to GitHub container registry
 
 on:
   push:
