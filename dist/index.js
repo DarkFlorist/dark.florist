@@ -1,6 +1,6 @@
 const initFixedHeader = () => {
-  const container = document.body;
-  const isPageScrolled = () => document.body.scrollTop > 0;
+  const container = document.scrollingElement || document.documentElement;
+  const isPageScrolled = () => container.scrollTop > 0;
   container.addEventListener("scroll", () => {
     if (isPageScrolled()) {
       container.classList.add("scrolled");
@@ -25,6 +25,11 @@ const initModalBindings = () => {
       dialog.open = true;
       return;
     }
+    if ("hidden" in dialog) {
+      dialog.hidden = false;
+      dialog.querySelector("[formmethod=dialog]")?.focus();
+      return;
+    }
     console.error("Element is not a dialog element");
   };
   const closeDialog = (dialog) => {
@@ -39,6 +44,10 @@ const initModalBindings = () => {
     }
     if ("open" in dialog) {
       dialog.open = false;
+      return;
+    }
+    if ("hidden" in dialog) {
+      dialog.hidden = true;
       return;
     }
     console.error("Element is not a dialog element");
